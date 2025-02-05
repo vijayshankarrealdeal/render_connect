@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from modules.database.db import get_db
+
 
 app = FastAPI()
 
@@ -7,6 +10,8 @@ app = FastAPI()
 def first():
     return {"message": "hello"}
 
-@app.get("/hello")
-def second():
-    return  {"message": "hello_test"}
+
+@app.get("/db")
+def read_root(db: Session = Depends(get_db)):
+    result = db.execute("SELECT now()").fetchone()
+    return {"server_time": str(result[0])}
