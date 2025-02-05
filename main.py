@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from modules.database.db import get_db
+from sqlalchemy import text as sql_text
 
 
 app = FastAPI()
@@ -13,5 +14,7 @@ def first():
 
 @app.get("/db")
 def read_root(db: Session = Depends(get_db)):
-    result = db.execute("SELECT now()").fetchone()
+    query = sql_text("SELECT now()")
+    result = db.execute(query).fetchone()
     return {"server_time": str(result[0])}
+
