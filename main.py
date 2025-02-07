@@ -18,3 +18,9 @@ def read_root(db: Session = Depends(get_db)):
     result = db.execute(query).fetchone()
     return {"server_time": str(result[0])}
 
+@app.get("/create_table")
+def create_table(query: str, db: Session = Depends(get_db)):
+    query = sql_text(query)
+    result = db.execute(query).fetchone()
+    return {"res":result}
+
