@@ -23,7 +23,7 @@ def read_root(db: Session = Depends(get_db)):
 def create_table(limit:int, db: Session = Depends(get_db)):
     query = sql_text(
         f"""SELECT *
-            FROM your_table
+            FROM meme
             ORDER BY RANDOM()
             LIMIT {limit};
         """
