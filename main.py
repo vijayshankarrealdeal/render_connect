@@ -37,8 +37,9 @@ def get_feed(
             "SELECT * FROM meme ORDER BY RANDOM() LIMIT :limit;"
         )
         result = db.execute(query, {"limit": limit}).fetchall()
-        response = [PostOutput.from_orm(row) for row in result]
+        response = [PostOutput(**row._mapping) for row in result]
         return response
     except Exception as e:
+        print(e)
         # Log the error as needed
         raise HTTPException(status_code=500, detail="Internal Server Error")
