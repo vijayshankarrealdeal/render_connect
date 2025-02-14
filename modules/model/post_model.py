@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel
 from datetime import datetime
-class PostOutput(BaseModel):
+class PostOutput(SQLModel):
     id: int
     name: str
     img: str
